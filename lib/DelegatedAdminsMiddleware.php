@@ -73,7 +73,7 @@ class DelegatedAdminsMiddleware extends Middleware {
 	 *
 	 */
 	public function beforeController($controller, $methodName) {
-	if ($this->reflector->hasAnnotation('@RequireGroupFolderAdmin')) {	
+	if ($this->reflector->hasAnnotation('RequireGroupFolderAdmin')) {	
 			if(!$this->delegationService->isAdmin()) {
 				$this->logger->error('User is not member of a delegated admins group');
 				throw new \Exception('User is not member of a delegated admins group', Http::STATUS_FORBIDDEN);

@@ -23,7 +23,6 @@ namespace OCA\GroupFolders\Folder;
 
 use OC\Files\Cache\Cache;
 use OCA\GroupFolders\Mount\GroupFolderStorage;
-use OCA\GroupFolders\Service\DelegationService;
 use OCP\Constants;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\Files\IMimeTypeLoader;
@@ -32,9 +31,6 @@ use OCP\IGroupManager;
 use OCP\IUser;
 
 class FolderManager {
-
-	/** @var DelegationService */
-	private $delegationService;
 
 	/** @var IDBConnection */
 	private $connection;
@@ -45,12 +41,8 @@ class FolderManager {
 	/** @var IMimeTypeLoader */
 	private $mimeTypeLoader;
 
-	public function __construct(DelegationService $delegationService,
-				IDBConnection $connection,
-				IGroupManager $groupManager = null,
-				IMimeTypeLoader $mimeTypeLoader = null) {
+	public function __construct(IDBConnection $connection, IGroupManager $groupManager = null, IMimeTypeLoader $mimeTypeLoader = null) {
 		$this->connection = $connection;
-		$this->delegationService = $delegationService;
 
 		// files_fulltextsearch compatibility
 		if (!$groupManager) {
@@ -275,7 +267,7 @@ class FolderManager {
 	}
 
 	public function canManageACL($folderId, $userId): bool {
-		if ($this->delegationService->isAdmin()) {
+		if ($this->groupManager->isAdmin($userId)) {
 			return true;
 		}
 
