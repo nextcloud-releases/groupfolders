@@ -1,3 +1,13 @@
+## 9.1.0
+
+### Add
+
+- Delegate the sub-admin right to groups
+
+### Fixed
+
+- [#3a15b74](https://github.com/arawa/groupfolders/commit/34fbc30985620e2ea7f31d7dec77643dfc76ce27) Remove the at symbol in the annotation `RequireGroupFolderAdmin` from lib/DelegateAdminsMiddleware
+
 ## 9.0.3
 
 ### Fixed
